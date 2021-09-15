@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import org.jetbrains.annotations.NotNull;
+import org.togetherjava.tjbot.commands.AbstractCommand;
 
 /**
  * Subcommands example!
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
  * <i>counts as 2 commands within Discord</i> `{@code tempban 6s Tijs#0001}` and
  * `{@code permban Tijs#0001}`
  *
+ * @see CommandExample
  */
 public class SubCommandExample extends AbstractCommand {
 

@@ -1,12 +1,16 @@
 package org.togetherjava.tjbot.commands;
 
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.GenericComponentInteractionCreateEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.exceptions.ErrorHandler;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.requests.ErrorResponse;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +54,26 @@ public class CommandHandler extends ListenerAdapter {
                             new CommandData(command.getCommandName(), command.getDescription())))
                         .queue();
                 }
+            }, throwable -> {
+                handleErrors(throwable, guild);
             });
         });
+    }
+
+    private static void handleErrors(Throwable throwable, Guild guild) {
+        new ErrorHandler()
+                .handle(ErrorResponse.MISSING_ACCESS, errorResponseException -> {
+                    // * Horrible, but there's no other way really
+                    guild.getTextChannelCache().stream()
+                            .filter(textChannel -> {
+                                return guild.getPublicRole().hasPermission(textChannel, Permission.MESSAGE_WRITE);
+                            }).findFirst().ifPresent(textChannel -> {
+                                textChannel.sendMessage("This bot needs the commands scope, please invite it correctly!\n" +
+                                        "You can join https://discord.gg/UJBwS2Hvcx for more info, I'll leave now.").queue();
+                                guild.leave().queue();
+                            });
+                    logger.error("Guild '{}' doesn't have the required commands scope!", guild.getName(), throwable);
+                }).accept(throwable);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * The class all commands have to abstract. <br>
  * Instead of implementing this interface, you can also extend
- * {@link org.togetherjava.tjbot.commands.example.AbstractCommand}.
+ * {@link AbstractCommand}.
  *
  * Look at {@link CommandExample} for an example. <br>
  * Or look at {@link SubCommandExample} for an example with subcommands.
@@ -24,6 +24,8 @@ import java.util.List;
  * <br>
  * <b> All commands that implement this interface need to be added command to the
  * {@link CommandHandler} class!</b>
+ *
+ * @see AbstractCommand
  */
 public interface Command {
 
@@ -61,6 +63,9 @@ public interface Command {
 
     /**
      * Whenever the command is only for guilds, optional method.
+     *
+     * If a command is only for guilds, it'll be updated instantly, and it'll be added as a guild command.
+     * If a command is globally, it'll have a 1-hour delay most likely.
      *
      * @return Whenever the command is only for guilds as a {@link Boolean}
      */
@@ -134,6 +139,8 @@ public interface Command {
      * @param args A {@link String} array of the arguments
      * @return A {@link String} generated ID in the format of
      *         `{@code commandName-timeInMs-arg1-arg2}`
+     *         
+     * @see #generateComponentId(Collection) 
      */
     default @NotNull String generateComponentId(@NotNull String... args) {
         StringBuilder stringBuilder = new StringBuilder(getCommandName());
@@ -163,6 +170,8 @@ public interface Command {
      * @param args A {@link Collection<String>} of {@link String}'s of the arguments
      * @return A {@link String} generated ID in the format of
      *         `{@code commandName-timeInMs-arg1-arg2}`
+     *         
+     * @see #generateComponentId(String...) 
      */
     default @NotNull String generateComponentId(@NotNull Collection<String> args) {
         return generateComponentId(args.toArray(new String[] {}));
