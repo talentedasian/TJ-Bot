@@ -61,19 +61,20 @@ public class CommandHandler extends ListenerAdapter {
     }
 
     private static void handleErrors(Throwable throwable, Guild guild) {
-        new ErrorHandler()
-                .handle(ErrorResponse.MISSING_ACCESS, errorResponseException -> {
-                    // * Horrible, but there's no other way really
-                    guild.getTextChannelCache().stream()
-                            .filter(textChannel -> {
-                                return guild.getPublicRole().hasPermission(textChannel, Permission.MESSAGE_WRITE);
-                            }).findFirst().ifPresent(textChannel -> {
-                                textChannel.sendMessage("This bot needs the commands scope, please invite it correctly!\n" +
-                                        "You can join https://discord.gg/UJBwS2Hvcx for more info, I'll leave now.").queue();
-                                guild.leave().queue();
-                            });
-                    logger.error("Guild '{}' doesn't have the required commands scope!", guild.getName(), throwable);
-                }).accept(throwable);
+        new ErrorHandler().handle(ErrorResponse.MISSING_ACCESS, errorResponseException -> {
+            // * Horrible, but there's no other way really
+            guild.getTextChannelCache().stream().filter(textChannel -> {
+                return guild.getPublicRole().hasPermission(textChannel, Permission.MESSAGE_WRITE);
+            }).findFirst().ifPresent(textChannel -> {
+                textChannel
+                    .sendMessage("This bot needs the commands scope, please invite it correctly!\n"
+                            + "You can join https://discord.gg/UJBwS2Hvcx for more info, I'll leave now.")
+                    .queue();
+                guild.leave().queue();
+            });
+            logger.error("Guild '{}' doesn't have the required commands scope!", guild.getName(),
+                    throwable);
+        }).accept(throwable);
     }
 
     @Override

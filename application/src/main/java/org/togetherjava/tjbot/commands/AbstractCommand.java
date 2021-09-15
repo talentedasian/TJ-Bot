@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * Makes usage of constructor to store the {@link #commandName}, {@link #description} and the
  * {@link #isGuildOnly} <br>
  * This helps against a tiny bit of duplicated code.
+ * 
  * @see Command
  */
 public class AbstractCommand implements Command {
@@ -15,6 +16,7 @@ public class AbstractCommand implements Command {
 
     /**
      * Check the linked docs for their requirements and more
+     * 
      * @param commandName {@link Command#getCommandName()}
      * @param description {@link Command#getDescription()}
      * @param isGuildOnly {@link Command#isGuildOnly()}
