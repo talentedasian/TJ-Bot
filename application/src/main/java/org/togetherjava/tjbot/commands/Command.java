@@ -84,7 +84,7 @@ public interface Command {
     }
 
     /**
-     * The execute method for when the command gets executed. <br>
+     * The execute method for when <b>this</b> command gets executed. <br>
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#slash-commands">JDA's
      * slash-commands Wiki article</a> for more information.
      *
@@ -93,7 +93,7 @@ public interface Command {
     default void onSlashCommand(SlashCommandEvent event) {}
 
     /**
-     * The execute method for when a button related to this command gets clicked. <br>
+     * The execute method for when a button related to <b>this</b> command gets clicked. <br>
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#buttons">JDA's
      * buttons Wiki article</a> for more information.
      *
@@ -107,7 +107,8 @@ public interface Command {
     default void onButtonClick(ButtonClickEvent event, List<String> idArgs) {}
 
     /**
-     * The execute method for when a selection menu related to this command gets clicked. <br>
+     * The execute method for when a selection menu related to <b>this</b> command gets clicked.
+     * <br>
      * JDA has no dedicated guide for selection menu's, they work the same as buttons. <br>
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#buttons">JDA's
      * buttons Wiki article</a> for more information.

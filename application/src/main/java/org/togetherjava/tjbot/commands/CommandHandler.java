@@ -62,7 +62,8 @@ public class CommandHandler extends ListenerAdapter {
 
     private static void handleErrors(Throwable throwable, Guild guild) {
         new ErrorHandler().handle(ErrorResponse.MISSING_ACCESS, errorResponseException -> {
-            // * Horrible, but there's no other way really
+            // * Hard to read, there's no other accurate way to get a channel you've the write
+            // * permission in.
             guild.getTextChannelCache().stream().filter(textChannel -> {
                 return guild.getPublicRole().hasPermission(textChannel, Permission.MESSAGE_WRITE);
             }).findFirst().ifPresent(textChannel -> {
