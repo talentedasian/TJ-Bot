@@ -88,7 +88,8 @@ public interface Command {
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#slash-commands">JDA's
      * slash-commands Wiki article</a> for more information.
      *
-     * <p><b>This event runs asynchronously</b>
+     * <p>
+     * <b>This event runs asynchronously</b>
      *
      * @param event The relating {@link SlashCommandEvent}
      */
@@ -99,11 +100,14 @@ public interface Command {
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#buttons">JDA's
      * buttons Wiki article</a> for more information.
      *
-     * All the arguments stored in the ID / ({@link Component#getId() Component#getId()}) have been converted added into a {@link List} <br>
+     * All the arguments stored in the ID / ({@link Component#getId() Component#getId()}) have been
+     * converted added into a {@link List} <br>
      * The commands name and current time in MS have been removed from this, example: <br>
-     * "examplecommand-7272727272-userId", will be converted to a {@link List} containing "userId", the rest has been removed.
+     * "examplecommand-7272727272-userId", will be converted to a {@link List} containing "userId",
+     * the rest has been removed.
      *
-     * <p><b>This event runs asynchronously</b>
+     * <p>
+     * <b>This event runs asynchronously</b>
      *
      * @param event The relating {@link ButtonClickEvent}
      * @param idArgs All given arguments stored in a {@link List} of {@link String}
@@ -117,11 +121,14 @@ public interface Command {
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#buttons">JDA's
      * buttons Wiki article</a> for more information.
      *
-     * All the arguments stored in the ID / ({@link Component#getId() Component#getId()}) have been converted added into a {@link List} <br>
+     * All the arguments stored in the ID / ({@link Component#getId() Component#getId()}) have been
+     * converted added into a {@link List} <br>
      * The commands name and current time in MS have been removed from this, example: <br>
-     * "examplecommand-7272727272-userId", will be converted to a {@link List} containing "userId", the rest has been removed.
+     * "examplecommand-7272727272-userId", will be converted to a {@link List} containing "userId",
+     * the rest has been removed.
      *
-     * <p><b>This event runs asynchronously</b>
+     * <p>
+     * <b>This event runs asynchronously</b>
      *
      * @param event The relating {@link ButtonClickEvent}
      * @param idArgs All given arguments stored in a {@link List} of {@link String}

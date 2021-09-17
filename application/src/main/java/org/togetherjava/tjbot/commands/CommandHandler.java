@@ -117,7 +117,7 @@ public class CommandHandler extends ListenerAdapter {
 
         if (command != null) {
             List<String> fullList = new ArrayList<>(Arrays.asList(argsArray));
-            
+
             final List<String> listExcludingStart = fullList.subList(2, fullList.size());
 
             executorService.submit(() -> onSucceed.accept(command, listExcludingStart));
