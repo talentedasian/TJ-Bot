@@ -88,6 +88,8 @@ public interface Command {
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#slash-commands">JDA's
      * slash-commands Wiki article</a> for more information.
      *
+     * <p><b>This event runs asynchronously</b>
+     *
      * @param event The relating {@link SlashCommandEvent}
      */
     default void onSlashCommand(SlashCommandEvent event) {}
@@ -97,12 +99,14 @@ public interface Command {
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#buttons">JDA's
      * buttons Wiki article</a> for more information.
      *
+     * All the arguments stored in the ID / ({@link Component#getId() Component#getId()}) have been converted added into a {@link List} <br>
+     * The commands name and current time in MS have been removed from this, example: <br>
+     * "examplecommand-7272727272-userId", will be converted to a {@link List} containing "userId", the rest has been removed.
+     *
+     * <p><b>This event runs asynchronously</b>
+     *
      * @param event The relating {@link ButtonClickEvent}
-     * @param idArgs All the arguments stored in the ID ({@link Component#getId()
-     *        Component#getId()}) have been converted to a {@link List} The commands name and
-     *        current time in MS have been removed from this, example:
-     *        "examplecommand-7272727272-userId", this will be converted to a {@link List}
-     *        containing "userId", the rest has been removed.
+     * @param idArgs All given arguments stored in a {@link List} of {@link String}
      */
     default void onButtonClick(ButtonClickEvent event, List<String> idArgs) {}
 
@@ -113,12 +117,14 @@ public interface Command {
      * Check <a href="https://github.com/DV8FromTheWorld/JDA/wiki/Interactions#buttons">JDA's
      * buttons Wiki article</a> for more information.
      *
+     * All the arguments stored in the ID / ({@link Component#getId() Component#getId()}) have been converted added into a {@link List} <br>
+     * The commands name and current time in MS have been removed from this, example: <br>
+     * "examplecommand-7272727272-userId", will be converted to a {@link List} containing "userId", the rest has been removed.
+     *
+     * <p><b>This event runs asynchronously</b>
+     *
      * @param event The relating {@link ButtonClickEvent}
-     * @param idArgs All the arguments stored in the ID ({@link Component#getId()
-     *        Component#getId()}) have been converted to a {@link List} The commands name and
-     *        current time in MS have been removed from this, example:
-     *        "examplecommand-7272727272-userId", this will be converted to a {@link List}
-     *        containing "userId", the rest has been removed.
+     * @param idArgs All given arguments stored in a {@link List} of {@link String}
      */
     default void onSelectionMenu(SelectionMenuEvent event, List<String> idArgs) {}
 

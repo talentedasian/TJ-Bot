@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -30,6 +32,8 @@ import java.util.stream.Collectors;
  */
 public class CommandHandler extends ListenerAdapter {
     private final static Logger logger = LoggerFactory.getLogger(CommandHandler.class);
+
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private final List<Command> commandList = new ArrayList<>();
     private final Map<String, Command> commandMap;
@@ -83,7 +87,7 @@ public class CommandHandler extends ListenerAdapter {
         Command command = commandMap.get(event.getName());
 
         if (command != null) {
-            command.onSlashCommand(event);
+            executorService.submit(() -> command.onSlashCommand(event));
         } else {
             logger.error("Command '{}' doesn't exist?", event.getName());
         }
@@ -112,9 +116,11 @@ public class CommandHandler extends ListenerAdapter {
         Command command = commandMap.get(argsArray[0]);
 
         if (command != null) {
-            List<String> args = new ArrayList<>(Arrays.asList(argsArray));
-            args = args.subList(2, args.size());
-            onSucceed.accept(command, args);
+            List<String> fullList = new ArrayList<>(Arrays.asList(argsArray));
+            
+            final List<String> listExcludingStart = fullList.subList(2, fullList.size());
+
+            executorService.submit(() -> onSucceed.accept(command, listExcludingStart));
         }
     }
 
