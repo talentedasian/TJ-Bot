@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.interactions.components.ButtonStyle;
 import net.dv8tion.jda.api.interactions.components.Component;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 import org.jetbrains.annotations.NotNull;
+import org.togetherjava.tjbot.commands.AbstractCommand;
 
 import java.util.List;
 

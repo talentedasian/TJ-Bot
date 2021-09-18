@@ -15,8 +15,7 @@ import java.util.List;
 
 /**
  * The class all commands have to abstract. <br>
- * Instead of implementing this interface, you can also extend
- * {@link org.togetherjava.tjbot.commands.example.AbstractCommand}.
+ * Instead of implementing this interface, you can also extend {@link AbstractCommand}.
  *
  * Look at {@link CommandExample} for an example. <br>
  * Or look at {@link SubCommandExample} for an example with subcommands.
@@ -38,7 +37,7 @@ public interface Command {
      * <li>Alphanumeric (with dash)</li>
      * <li>1 to 32 characters long</li>
      * </ul>
-     * 
+     *
      * @return The commands name as a {@link String}
      */
     @NotNull
@@ -53,7 +52,7 @@ public interface Command {
      * <ul>
      * <li>1 to 100 characters long</li>
      * </ul>
-     * 
+     *
      * @return The command's description as a {@link String}
      */
     @NotNull

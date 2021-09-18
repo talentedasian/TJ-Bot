@@ -54,7 +54,7 @@ public enum Application {
             JDA jda = JDABuilder.createDefault(token)
                 .addEventListeners(new PingPongListener())
                 .addEventListeners(new DatabaseListener(database))
-                .addEventListeners(new CommandHandler())
+                .addEventListeners(new CommandHandler(database))
                 .build();
             jda.awaitReady();
             logger.info("Bot is ready");
