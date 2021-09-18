@@ -9,8 +9,6 @@ import java.util.*;
 
 public class TagSystem {
     private final Database database;
-    private boolean changed = true;
-    private Map<String, String> cache;
 
     public TagSystem(Database database) {
         this.database = database;
@@ -27,8 +25,6 @@ public class TagSystem {
     public void delete(String tag) {
         database.writeTransaction(ctx -> {
             ctx.deleteFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).execute();
-
-            changed = true;
         });
     }
 
@@ -39,26 +35,19 @@ public class TagSystem {
             if (tagsRecord.update() == 0) {
                 tagsRecord.insert();
             }
-
-            changed = true;
         });
     }
 
     public String get(String tag) {
-        if (!changed) {
-            return cache.get(tag);
-        }
-
-        retrieve();
-
-        return get(tag);
+        return database.readTransaction(ctx -> {
+            return Optional
+                .ofNullable(ctx.selectFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).fetchOne())
+                .map(TagsRecord::getContent)
+                .orElse(null);
+        });
     }
 
     public Map<String, String> retrieve() {
-        if (!changed) {
-            return cache;
-        }
-
         return database.readTransaction(ctx -> {
             Result<TagsRecord> result = ctx.selectFrom(Tags.TAGS).fetch();
             Map<String, String> out = new HashMap<>();
@@ -66,9 +55,6 @@ public class TagSystem {
             for (TagsRecord tagsRecord : result) {
                 out.put(tagsRecord.getId(), tagsRecord.getContent());
             }
-
-            cache = out;
-            changed = false;
 
             return out;
         });
