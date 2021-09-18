@@ -50,7 +50,6 @@ public class TagUtility {
             event
                 .replyEmbeds(buildAllTagsEmbed(requestor, tagSystem)
                     .setTitle("Could not find tag '" + tagId + "'")
-                    .setDescription("All available tags")
                     .build())
                 .setEphemeral(true)
                 .queue();
@@ -62,18 +61,8 @@ public class TagUtility {
     }
 
     public static EmbedBuilder buildAllTagsEmbed(String user, TagSystem tagSystem) {
-        EmbedBuilder builder = new EmbedBuilder().setColor(Color.MAGENTA)
+        return new EmbedBuilder().setColor(Color.MAGENTA)
             .setTimestamp(LocalDateTime.now())
-            .setFooter(user);
-
-        for (Map.Entry<String, String> entry : tagSystem.retrieve().entrySet()) {
-            String id = entry.getKey();
-            String text = entry.getValue();
-            String preview = text.substring(0, Math.min(text.length(), 50));
-
-            builder.addField(id, preview + (text.length() > 50 ? "..." : ""), true);
-        }
-
-        return builder;
+            .setFooter(user).setDescription(String.join(", ", tagSystem.retrieveIds()));
     }
 }
