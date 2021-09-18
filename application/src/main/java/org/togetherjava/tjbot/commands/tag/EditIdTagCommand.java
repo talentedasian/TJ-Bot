@@ -26,7 +26,7 @@ public class EditIdTagCommand extends AbstractCommand {
     @Override
     public CommandData addOptions(CommandData data) {
         return data.addOption(OptionType.STRING, "tag-id", "Tag id", true)
-            .addOption(OptionType.STRING, "message-id", "Message id", true);
+            .addOption(OptionType.NUMBER, "message-id", "Message id", true);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class EditIdTagCommand extends AbstractCommand {
 
         if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
             String tagId = event.getOption("tag-id").getAsString();
-            long messageId = TagUtility.parseLong(event.getOption("message-id").getAsString());
+            long messageId = event.getOption("message-id").getAsLong();
 
             if (!tagSystem.exists(tagId)) {
                 event.reply("This tag does not exist").setEphemeral(true).queue();
