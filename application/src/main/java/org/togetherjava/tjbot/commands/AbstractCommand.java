@@ -1,4 +1,4 @@
-package org.togetherjava.tjbot.commands.example;
+package org.togetherjava.tjbot.commands;
 
 import org.jetbrains.annotations.NotNull;
 import org.togetherjava.tjbot.commands.Command;
