@@ -117,10 +117,8 @@ public class CommandHandler extends ListenerAdapter {
 
         if (command != null) {
             List<String> args = new ArrayList<>(Arrays.asList(argsArray));
-
-            final List<String> argsExcludingFirst = fullList.subList(2, fullList.size());
-
-            executorService.submit(() -> onSucceed.accept(command, listExcludingStart));
+            final List<String> argsExcludingFirst = args.subList(2, args.size());
+            executorService.submit(() -> onSucceed.accept(command, argsExcludingFirst));
         }
     }
 
