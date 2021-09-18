@@ -45,24 +45,33 @@ public class TagUtility {
                         Emoji.fromUnicode("\uD83D\uDDD1")))
                 .queue();
         } else {
-            EmbedBuilder builder = new EmbedBuilder().setColor(Color.RED)
-                .setTimestamp(LocalDateTime.now())
-                .setFooter(requestor)
-                .setTitle("Could not find tag '" + tagId + "'")
-                .setDescription("All available tags");
-
-            for (Map.Entry<String, String> entry : tagSystem.retrieve().entrySet()) {
-                String id = entry.getKey(), text = entry.getValue(),
-                        preview = text.substring(0, Math.min(text.length(), 50));
-
-                builder.addField(id, preview + (text.length() > 50 ? "..." : ""), true);
-            }
-
-            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
+            event
+                .replyEmbeds(buildAllTagsEmbed(requestor, tagSystem)
+                    .setTitle("Could not find tag'" + tagId + "'")
+                    .setDescription("All available tags")
+                    .build())
+                .setEphemeral(true)
+                .queue();
         }
     }
 
     public static String escape(String s) {
         return s.replaceAll("([^a-zA-Z0-9 \n\r])", "\\\\$1");
+    }
+
+    public static EmbedBuilder buildAllTagsEmbed(String user, TagSystem tagSystem) {
+        EmbedBuilder builder = new EmbedBuilder().setColor(Color.MAGENTA)
+            .setTimestamp(LocalDateTime.now())
+            .setFooter(user)
+            .setTitle("All available tags");
+
+        for (Map.Entry<String, String> entry : tagSystem.retrieve().entrySet()) {
+            String id = entry.getKey(), text = entry.getValue(),
+                    preview = text.substring(0, Math.min(text.length(), 50));
+
+            builder.addField(id, preview + (text.length() > 50 ? "..." : ""), true);
+        }
+
+        return builder;
     }
 }

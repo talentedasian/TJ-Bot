@@ -1,17 +1,13 @@
 package org.togetherjava.tjbot.commands.tag;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Emoji;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.components.Button;
 import net.dv8tion.jda.api.interactions.components.ButtonStyle;
 import net.dv8tion.jda.api.interactions.components.selections.SelectOption;
@@ -19,10 +15,7 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 import org.togetherjava.tjbot.commands.AbstractCommand;
 import org.togetherjava.tjbot.tag.TagSystem;
 
-import java.awt.*;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 public class TagCommand extends AbstractCommand {
     private final TagSystem tagSystem;
