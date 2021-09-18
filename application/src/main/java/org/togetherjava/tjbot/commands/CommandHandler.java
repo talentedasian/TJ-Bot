@@ -15,7 +15,6 @@ import org.togetherjava.tjbot.db.Database;
 import org.togetherjava.tjbot.tag.TagSystem;
 import org.togetherjava.tjbot.tag.TagSystemInstanceHolder;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
