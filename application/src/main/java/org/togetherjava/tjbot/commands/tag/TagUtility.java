@@ -64,8 +64,7 @@ public class TagUtility {
     public static EmbedBuilder buildAllTagsEmbed(String user, TagSystem tagSystem) {
         EmbedBuilder builder = new EmbedBuilder().setColor(Color.MAGENTA)
             .setTimestamp(LocalDateTime.now())
-            .setFooter(user)
-            .setTitle("All available tags");
+            .setFooter(user);
 
         for (Map.Entry<String, String> entry : tagSystem.retrieve().entrySet()) {
             String id = entry.getKey();
