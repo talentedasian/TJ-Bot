@@ -206,7 +206,7 @@ public class TagManageCommand extends AbstractCommand {
 
         if (event.getUser().getId().equals(userId)
                 || event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            if (event.getButton().getStyle() == ButtonStyle.SUCCESS
+            if (event.getButton().getLabel().equals("Of course!")
                     && !event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
                 String tagId = idArgs.get(1);
 
@@ -223,7 +223,7 @@ public class TagManageCommand extends AbstractCommand {
                         .build())
                     .setEphemeral(true)
                     .queue();
-            } else if (event.getButton().getStyle() == ButtonStyle.DANGER) {
+            } else if (event.getButton().getLabel().equals("Abort")) {
                 event.getMessage().delete().queue();
             }
         } else {
