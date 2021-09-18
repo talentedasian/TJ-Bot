@@ -143,9 +143,9 @@ public class TagManageCommand extends AbstractCommand {
 
         event.reply("You sure? Confirming this will delete the tag '" + tagId + "'")
             .addActionRow(
-                    Button.of(ButtonStyle.SUCCESS, generateComponentId(member.getId(), tagId),
+                    Button.of(ButtonStyle.DANGER, generateComponentId(member.getId(), tagId),
                             "Of course!"),
-                    Button.of(ButtonStyle.DANGER, generateComponentId(member.getId()), "Abort"))
+                    Button.of(ButtonStyle.SUCCESS, generateComponentId(member.getId()), "Abort"))
             .queue();
     }
 
