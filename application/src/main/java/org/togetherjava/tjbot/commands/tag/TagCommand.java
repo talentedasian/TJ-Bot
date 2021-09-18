@@ -45,7 +45,7 @@ public class TagCommand extends AbstractCommand {
         if (idOption != null) {
             String tagId = idOption.getAsString();
 
-            replyTag(event, tagId, event.getUser().getAsTag(), event.getUser().getId());
+            TagUtility.replyTag(event, tagId, event.getUser().getAsTag(), tagSystem, false, event.getUser().getId());
         } else {
             SelectionMenu.Builder menu =
                     SelectionMenu.create(generateComponentId(event.getUser().getId()))
@@ -86,48 +86,9 @@ public class TagCommand extends AbstractCommand {
 
             event.getMessage().delete().queue();
 
-            sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(), userId);
+            TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(), tagSystem, false, generateComponentId(userId));
         } else {
             event.reply(":police_car: Selection menu theft is illegal").setEphemeral(true).queue();
         }
-    }
-
-    private void sendTag(MessageChannel channel, String tagId, String requestor, String userId) {
-        channel.sendMessageEmbeds(generateEmbed(tagSystem.get(tagId), requestor))
-            .setActionRow(Button.of(ButtonStyle.DANGER, generateComponentId(userId), "Delete",
-                    Emoji.fromUnicode("\uD83D\uDDD1")))
-            .queue();
-    }
-
-    private void replyTag(SlashCommandEvent event, String tagId, String requestor, String userId) {
-        if (tagSystem.exists(tagId)) {
-            event.replyEmbeds(generateEmbed(tagSystem.get(tagId), requestor))
-                .addActionRow(Button.of(ButtonStyle.DANGER, generateComponentId(userId), "Delete",
-                        Emoji.fromUnicode("\uD83D\uDDD1")))
-                .queue();
-        } else {
-            EmbedBuilder builder = new EmbedBuilder().setColor(Color.RED)
-                .setTimestamp(LocalDateTime.now())
-                .setFooter(requestor)
-                .setTitle("Could not find tag '" + tagId + "'")
-                .setDescription("All available tags");
-
-            for (Map.Entry<String, String> entry : tagSystem.retrieve().entrySet()) {
-                String id = entry.getKey(), text = entry.getValue(),
-                        preview = text.substring(0, Math.min(text.length(), 50));
-
-                builder.addField(id, preview + "...", true);
-            }
-
-            event.replyEmbeds(builder.build()).setEphemeral(true).queue();
-        }
-    }
-
-    private MessageEmbed generateEmbed(String tag, String requestor) {
-        return new EmbedBuilder().setDescription(tag)
-            .setTimestamp(LocalDateTime.now())
-            .setFooter(requestor)
-            .setColor(new Color(tag.hashCode()))
-            .build();
     }
 }
