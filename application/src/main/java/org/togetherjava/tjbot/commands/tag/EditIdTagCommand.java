@@ -51,7 +51,7 @@ public class EditIdTagCommand extends AbstractCommand {
                         .setTitle("Success")
                         .setTimestamp(LocalDateTime.now())
                         .setFooter(event.getUser().getAsTag())
-                        .setDescription("Successfully created tag '" + tagId + "'")
+                        .setDescription("Successfully edited tag '" + tagId + "'")
                         .build())
                     .queue();
             }, failure -> {
