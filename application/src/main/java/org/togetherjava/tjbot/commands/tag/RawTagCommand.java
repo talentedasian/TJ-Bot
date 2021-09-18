@@ -44,7 +44,8 @@ public class RawTagCommand extends AbstractCommand {
         if (idOption != null) {
             String tagId = idOption.getAsString();
 
-            TagUtility.replyTag(event, tagId, event.getUser().getAsTag(), tagSystem, true, event.getUser().getId());
+            TagUtility.replyTag(event, tagId, event.getUser().getAsTag(), tagSystem, true,
+                    event.getUser().getId());
         } else {
             SelectionMenu.Builder menu =
                     SelectionMenu.create(generateComponentId(event.getUser().getId(), "1"))
@@ -85,7 +86,8 @@ public class RawTagCommand extends AbstractCommand {
 
             event.getMessage().delete().queue();
 
-            TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(), tagSystem, true, generateComponentId(userId));
+            TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(),
+                    tagSystem, true, generateComponentId(userId));
         } else {
             event.reply(":police_car: Selection menu theft is illegal").setEphemeral(true).queue();
         }
