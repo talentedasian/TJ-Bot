@@ -63,6 +63,7 @@ public class TagUtility {
     public static EmbedBuilder buildAllTagsEmbed(String user, TagSystem tagSystem) {
         return new EmbedBuilder().setColor(Color.MAGENTA)
             .setTimestamp(LocalDateTime.now())
-            .setFooter(user).setDescription(String.join(", ", tagSystem.retrieveIds()));
+            .setFooter(user)
+            .setDescription(String.join(", ", tagSystem.retrieveIds()));
     }
 }
