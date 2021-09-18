@@ -49,7 +49,7 @@ public class TagUtility {
         } else {
             event
                 .replyEmbeds(buildAllTagsEmbed(requestor, tagSystem)
-                    .setTitle("Could not find tag'" + tagId + "'")
+                    .setTitle("Could not find tag '" + tagId + "'")
                     .setDescription("All available tags")
                     .build())
                 .setEphemeral(true)
