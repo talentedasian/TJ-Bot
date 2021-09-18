@@ -127,7 +127,7 @@ public class TagManageCommand extends AbstractCommand {
                     && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
                 event.reply("This message doesn't exist").setEphemeral(true).queue();
             } else {
-                throw new RuntimeException(failure);
+                throw new RethrownRuntimeException(failure);
             }
         });
     }
