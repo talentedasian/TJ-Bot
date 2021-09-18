@@ -116,9 +116,9 @@ public class CommandHandler extends ListenerAdapter {
         Command command = commandMap.get(argsArray[0]);
 
         if (command != null) {
-            List<String> fullList = new ArrayList<>(Arrays.asList(argsArray));
+            List<String> args = new ArrayList<>(Arrays.asList(argsArray));
 
-            final List<String> listExcludingStart = fullList.subList(2, fullList.size());
+            final List<String> argsExcludingFirst = fullList.subList(2, fullList.size());
 
             executorService.submit(() -> onSucceed.accept(command, listExcludingStart));
         }
