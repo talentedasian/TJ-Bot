@@ -11,7 +11,6 @@ import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.awt.*;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 public class TagUtility {
     private TagUtility() {}
