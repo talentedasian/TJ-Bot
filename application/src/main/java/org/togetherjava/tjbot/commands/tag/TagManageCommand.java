@@ -185,6 +185,7 @@ public class TagManageCommand extends AbstractCommand {
                     }
                 });
             }
+            default -> throw new IllegalStateException();
         }
     }
 
