@@ -70,123 +70,132 @@ public class TagManageCommand extends AbstractCommand {
         }
 
         switch (event.getSubcommandName()) {
-            case "edittag" -> {
-                String tagId = event.getOption("id").getAsString();
-                String content = event.getOption(CONTENT).getAsString();
-
-                if (!tagSystem.exists(tagId)) {
-                    event.reply(THIS_TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
-
-                    return;
-                }
-
-                tagSystem.put(tagId, content);
-
-                event
-                    .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                        .setTitle(SUCCESS)
-                        .setTimestamp(LocalDateTime.now())
-                        .setFooter(event.getUser().getAsTag())
-                        .setDescription("Successfully edited tag '" + tagId + "'")
-                        .build())
-                    .queue();
-            }
-            case "editidtag" -> {
-                String tagId = event.getOption(TAG_MINUS_ID).getAsString();
-                long messageId = event.getOption(MESSAGE_MINUS_ID).getAsLong();
-
-                if (!tagSystem.exists(tagId)) {
-                    event.reply(THIS_TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
-
-                    return;
-                }
-
-                event.getMessageChannel().retrieveMessageById(messageId).queue(message -> {
-                    tagSystem.put(tagId, message.getContentRaw());
-
-                    event
-                        .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                            .setTitle(SUCCESS)
-                            .setTimestamp(LocalDateTime.now())
-                            .setFooter(event.getUser().getAsTag())
-                            .setDescription("Successfully edited tag '" + tagId + "'")
-                            .build())
-                        .queue();
-                }, failure -> {
-                    if (failure instanceof ErrorResponseException ex
-                            && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
-                        event.reply("This message doesn't exist").setEphemeral(true).queue();
-                    }
-                });
-            }
-            case "deletetag" -> {
-                String tagId = event.getOption("id").getAsString();
-
-                if (!tagSystem.exists(tagId)) {
-                    event.reply(THIS_TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
-
-                    return;
-                }
-
-                event.reply("You sure? Confirming this will delete the tag '" + tagId + "'")
-                    .addActionRow(
-                            Button.of(ButtonStyle.SUCCESS,
-                                    generateComponentId(member.getId(), tagId), "Of course!"),
-                            Button.of(ButtonStyle.DANGER, generateComponentId(member.getId()),
-                                    "Abort"))
-                    .queue();
-            }
-            case "createtag" -> {
-                String tagId = event.getOption("id").getAsString();
-                String content = event.getOption(CONTENT).getAsString();
-
-                if (tagSystem.exists(tagId)) {
-                    event.reply("This tag already exists").setEphemeral(true).queue();
-
-                    return;
-                }
-
-                tagSystem.put(tagId, content);
-
-                event
-                    .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                        .setTitle(SUCCESS)
-                        .setTimestamp(LocalDateTime.now())
-                        .setFooter(event.getUser().getAsTag())
-                        .setDescription("Successfully created tag '" + tagId + "'")
-                        .build())
-                    .queue();
-            }
-            case "createidtag" -> {
-                String tagId = event.getOption(TAG_MINUS_ID).getAsString();
-                long messageId = event.getOption(MESSAGE_MINUS_ID).getAsLong();
-
-                if (tagSystem.exists(tagId)) {
-                    event.reply("This tag already exists").setEphemeral(true).queue();
-
-                    return;
-                }
-
-                event.getMessageChannel().retrieveMessageById(messageId).queue(message -> {
-                    tagSystem.put(tagId, message.getContentRaw());
-
-                    event
-                        .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                            .setTitle(SUCCESS)
-                            .setTimestamp(LocalDateTime.now())
-                            .setFooter(event.getUser().getAsTag())
-                            .setDescription("Successfully created tag '" + tagId + "'")
-                            .build())
-                        .queue();
-                }, failure -> {
-                    if (failure instanceof ErrorResponseException ex
-                            && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
-                        event.reply("This message doesn't exist").setEphemeral(true).queue();
-                    }
-                });
-            }
+            case "edittag" -> editTag(event);
+            case "editidtag" -> editIdTag(event);
+            case "deletetag" -> deleteTag(event, member);
+            case "createtag" -> createTag(event);
+            case "createidtag" -> createIdTag(event);
             default -> throw new IllegalStateException();
         }
+    }
+
+    private void editTag(SlashCommandEvent event) {
+        String tagId = event.getOption("id").getAsString();
+        String content = event.getOption(CONTENT).getAsString();
+
+        if (!tagSystem.exists(tagId)) {
+            event.reply(THIS_TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
+
+            return;
+        }
+
+        tagSystem.put(tagId, content);
+
+        event
+            .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
+                .setTitle(SUCCESS)
+                .setTimestamp(LocalDateTime.now())
+                .setFooter(event.getUser().getAsTag())
+                .setDescription("Successfully edited tag '" + tagId + "'")
+                .build())
+            .queue();
+    }
+
+    private void editIdTag(SlashCommandEvent event) {
+        String tagId = event.getOption(TAG_MINUS_ID).getAsString();
+        long messageId = event.getOption(MESSAGE_MINUS_ID).getAsLong();
+
+        if (!tagSystem.exists(tagId)) {
+            event.reply(THIS_TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
+
+            return;
+        }
+
+        event.getMessageChannel().retrieveMessageById(messageId).queue(message -> {
+            tagSystem.put(tagId, message.getContentRaw());
+
+            event
+                .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
+                    .setTitle(SUCCESS)
+                    .setTimestamp(LocalDateTime.now())
+                    .setFooter(event.getUser().getAsTag())
+                    .setDescription("Successfully edited tag '" + tagId + "'")
+                    .build())
+                .queue();
+        }, failure -> {
+            if (failure instanceof ErrorResponseException ex
+                    && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
+                event.reply("This message doesn't exist").setEphemeral(true).queue();
+            }
+        });
+    }
+
+    private void deleteTag(SlashCommandEvent event, Member member) {
+        String tagId = event.getOption("id").getAsString();
+
+        if (!tagSystem.exists(tagId)) {
+            event.reply(THIS_TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
+
+            return;
+        }
+
+        event.reply("You sure? Confirming this will delete the tag '" + tagId + "'")
+            .addActionRow(
+                    Button.of(ButtonStyle.SUCCESS, generateComponentId(member.getId(), tagId),
+                            "Of course!"),
+                    Button.of(ButtonStyle.DANGER, generateComponentId(member.getId()), "Abort"))
+            .queue();
+    }
+
+    private void createTag(SlashCommandEvent event) {
+        String tagId = event.getOption("id").getAsString();
+        String content = event.getOption(CONTENT).getAsString();
+
+        if (tagSystem.exists(tagId)) {
+            event.reply("This tag already exists").setEphemeral(true).queue();
+
+            return;
+        }
+
+        tagSystem.put(tagId, content);
+
+        event
+            .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
+                .setTitle(SUCCESS)
+                .setTimestamp(LocalDateTime.now())
+                .setFooter(event.getUser().getAsTag())
+                .setDescription("Successfully created tag '" + tagId + "'")
+                .build())
+            .queue();
+    }
+
+    private void createIdTag(SlashCommandEvent event) {
+        String tagId = event.getOption(TAG_MINUS_ID).getAsString();
+        long messageId = event.getOption(MESSAGE_MINUS_ID).getAsLong();
+
+        if (tagSystem.exists(tagId)) {
+            event.reply("This tag already exists").setEphemeral(true).queue();
+
+            return;
+        }
+
+        event.getMessageChannel().retrieveMessageById(messageId).queue(message -> {
+            tagSystem.put(tagId, message.getContentRaw());
+
+            event
+                .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
+                    .setTitle(SUCCESS)
+                    .setTimestamp(LocalDateTime.now())
+                    .setFooter(event.getUser().getAsTag())
+                    .setDescription("Successfully created tag '" + tagId + "'")
+                    .build())
+                .queue();
+        }, failure -> {
+            if (failure instanceof ErrorResponseException ex
+                    && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
+                event.reply("This message doesn't exist").setEphemeral(true).queue();
+            }
+        });
     }
 
     @Override
