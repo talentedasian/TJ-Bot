@@ -3,6 +3,8 @@ package org.togetherjava.tjbot.tag;
 import org.togetherjava.tjbot.db.Database;
 
 public class TagSystemInstanceHolder {
+    private TagSystemInstanceHolder() {}
+
     private static TagSystem instance;
 
     public static TagSystem getOrCreate(Database database) {

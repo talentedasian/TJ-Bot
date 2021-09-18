@@ -66,12 +66,4 @@ public class CreateIdTagCommand extends AbstractCommand {
                 .queue();
         }
     }
-
-    private long parseLong(String s) {
-        try {
-            return Long.parseLong(s);
-        } catch (NumberFormatException ignored) {
-            return -1;
-        }
-    }
 }

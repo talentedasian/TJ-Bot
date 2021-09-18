@@ -1,7 +1,6 @@
 package org.togetherjava.tjbot.commands;
 
 import org.jetbrains.annotations.NotNull;
-import org.togetherjava.tjbot.commands.Command;
 
 /**
  * Makes usage of constructor to store the {@link #commandName}, {@link #description} and the

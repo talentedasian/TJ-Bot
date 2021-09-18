@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public class TagUtility {
+    private TagUtility() {}
+
     public static MessageEmbed generateEmbed(String tag, String requestor) {
         return new EmbedBuilder().setDescription(tag)
             .setTimestamp(LocalDateTime.now())
@@ -66,8 +68,9 @@ public class TagUtility {
             .setTitle("All available tags");
 
         for (Map.Entry<String, String> entry : tagSystem.retrieve().entrySet()) {
-            String id = entry.getKey(), text = entry.getValue(),
-                    preview = text.substring(0, Math.min(text.length(), 50));
+            String id = entry.getKey();
+            String text = entry.getValue();
+            String preview = text.substring(0, Math.min(text.length(), 50));
 
             builder.addField(id, preview + (text.length() > 50 ? "..." : ""), true);
         }

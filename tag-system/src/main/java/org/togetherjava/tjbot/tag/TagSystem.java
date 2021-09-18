@@ -34,10 +34,10 @@ public class TagSystem {
 
     public void put(String tag, String content) {
         database.writeTransaction(ctx -> {
-            TagsRecord record = ctx.newRecord(Tags.TAGS).setId(tag).setContent(content);
+            TagsRecord tagsRecord = ctx.newRecord(Tags.TAGS).setId(tag).setContent(content);
 
-            if (record.update() == 0) {
-                record.insert();
+            if (tagsRecord.update() == 0) {
+                tagsRecord.insert();
             }
 
             changed = true;
@@ -63,8 +63,8 @@ public class TagSystem {
             Result<TagsRecord> result = ctx.selectFrom(Tags.TAGS).fetch();
             Map<String, String> out = new HashMap<>();
 
-            for (TagsRecord record : result) {
-                out.put(record.getId(), record.getContent());
+            for (TagsRecord tagsRecord : result) {
+                out.put(tagsRecord.getId(), tagsRecord.getContent());
             }
 
             cache = out;

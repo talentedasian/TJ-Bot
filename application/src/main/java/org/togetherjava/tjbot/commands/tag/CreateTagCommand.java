@@ -32,8 +32,8 @@ public class CreateTagCommand extends AbstractCommand {
         Member member = event.getMember();
 
         if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
-            String tagId = event.getOption("id").getAsString(),
-                    content = event.getOption("content").getAsString();
+            String tagId = event.getOption("id").getAsString();
+            String content = event.getOption("content").getAsString();
 
             if (tagSystem.exists(tagId)) {
                 event.reply("This tag already exists").setEphemeral(true).queue();
