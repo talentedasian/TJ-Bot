@@ -35,7 +35,7 @@ public class CreateIdTagCommand extends AbstractCommand {
 
         if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
             String tagId = event.getOption("tag-id").getAsString();
-            long messageId = parseLong(event.getOption("message-id").getAsString());
+            long messageId = TagUtility.parseLong(event.getOption("message-id").getAsString());
 
             if (tagSystem.exists(tagId)) {
                 event.reply("This tag already exists").setEphemeral(true).queue();

@@ -35,7 +35,7 @@ public class EditIdTagCommand extends AbstractCommand {
 
         if (member.hasPermission(Permission.MESSAGE_MANAGE)) {
             String tagId = event.getOption("tag-id").getAsString();
-            long messageId = parseLong(event.getOption("message-id").getAsString());
+            long messageId = TagUtility.parseLong(event.getOption("message-id").getAsString());
 
             if (!tagSystem.exists(tagId)) {
                 event.reply("This tag does not exist").setEphemeral(true).queue();
@@ -64,14 +64,6 @@ public class EditIdTagCommand extends AbstractCommand {
             event.reply("You need the MESSAGE_MANAGE permission to use this command!")
                 .setEphemeral(true)
                 .queue();
-        }
-    }
-
-    private long parseLong(String s) {
-        try {
-            return Long.parseLong(s);
-        } catch (NumberFormatException ignored) {
-            return -1;
         }
     }
 }

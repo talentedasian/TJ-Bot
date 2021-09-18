@@ -74,4 +74,12 @@ public class TagUtility {
 
         return builder;
     }
+
+    public static long parseLong(String s) {
+        try {
+            return Long.parseLong(s);
+        } catch (NumberFormatException ignored) {
+            return -1;
+        }
+    }
 }
