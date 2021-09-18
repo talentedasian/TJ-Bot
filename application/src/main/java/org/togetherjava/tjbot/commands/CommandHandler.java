@@ -38,10 +38,7 @@ public class CommandHandler extends ListenerAdapter {
         TagSystem tagSystem = TagSystemInstanceHolder.getOrCreate(database);
 
         commandList.addAll(List.of(new ReloadCommand(this), new TagCommand(tagSystem),
-                new TagsCommand(tagSystem), new CreateTagCommand(tagSystem),
-                new DeleteTagCommand(tagSystem), new EditTagCommand(tagSystem),
-                new RawTagCommand(tagSystem), new CreateIdTagCommand(tagSystem),
-                new EditIdTagCommand(tagSystem)));
+                new TagsCommand(tagSystem), new TagManageCommand(tagSystem)));
 
         commandMap = commandList.stream()
             .collect(Collectors.toMap(Command::getCommandName, Function.identity()));

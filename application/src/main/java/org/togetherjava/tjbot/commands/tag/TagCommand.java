@@ -28,7 +28,8 @@ public class TagCommand extends AbstractCommand {
 
     @Override
     public CommandData addOptions(CommandData data) {
-        return data.addOption(OptionType.STRING, "id", "Tag id");
+        return data.addOption(OptionType.STRING, "id", "Tag id")
+            .addOption(OptionType.BOOLEAN, "raw", "Raw");
     }
 
     @Override
@@ -38,8 +39,8 @@ public class TagCommand extends AbstractCommand {
         if (idOption != null) {
             String tagId = idOption.getAsString();
 
-            TagUtility.replyTag(event, tagId, event.getUser().getAsTag(), tagSystem, false,
-                    event.getUser().getId());
+            TagUtility.replyTag(event, tagId, event.getUser().getAsTag(), tagSystem,
+                    event.getOption("raw") != null, event.getUser().getId());
         } else {
             SelectionMenu.Builder menu =
                     SelectionMenu.create(generateComponentId(event.getUser().getId()))
