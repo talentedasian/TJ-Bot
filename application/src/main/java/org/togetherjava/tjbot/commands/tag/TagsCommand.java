@@ -29,7 +29,7 @@ public class TagsCommand extends AbstractCommand {
             String id = entry.getKey(), text = entry.getValue(),
                     preview = text.substring(0, Math.min(text.length(), 50));
 
-            builder.addField(id, preview + "...", true);
+            builder.addField(id, preview + (text.length() > 50 ? "..." : ""), true);
         }
 
         event.replyEmbeds(builder.build()).queue();
