@@ -31,8 +31,8 @@ public class TagUtility {
         channel
             .sendMessageEmbeds(
                     TagUtility.generateEmbed(isRaw ? escape(content) : content, requestor))
-            .setActionRow(Button.of(ButtonStyle.DANGER,
-                    componentId, "Delete", Emoji.fromUnicode("\uD83D\uDDD1")))
+            .setActionRow(Button.of(ButtonStyle.DANGER, componentId, "Delete",
+                    Emoji.fromUnicode("\uD83D\uDDD1")))
             .queue();
     }
 
