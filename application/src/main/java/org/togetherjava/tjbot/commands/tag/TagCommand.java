@@ -46,9 +46,7 @@ public class TagCommand extends AbstractCommand {
                     SelectionMenu.create(generateComponentId(event.getUser().getId()))
                         .setRequiredRange(1, 1);
 
-            for (String tag : tagSystem.retrieveIds()) {
-                menu.addOption(tag, tag);
-            }
+            tagSystem.retrieveIds().stream().limit(25).forEach(tag -> menu.addOption(tag, tag));
 
             event.reply("Choose a tag")
                 .addActionRow(menu.build())
