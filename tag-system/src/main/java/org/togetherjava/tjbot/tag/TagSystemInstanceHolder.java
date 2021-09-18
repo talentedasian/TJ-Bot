@@ -5,7 +5,7 @@ import org.togetherjava.tjbot.db.Database;
 public class TagSystemInstanceHolder {
     private TagSystemInstanceHolder() {}
 
-    private static TagSystem instance;
+    private static volatile TagSystem instance;
 
     public static TagSystem getOrCreate(Database database) {
         if (instance == null) {
