@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  *
  * Commands need to be added to the commandList
  */
-public class CommandHandler extends ListenerAdapter {
+public final class CommandHandler extends ListenerAdapter {
     private final static Logger logger = LoggerFactory.getLogger(CommandHandler.class);
 
     private final List<Command> commandList = new ArrayList<>();

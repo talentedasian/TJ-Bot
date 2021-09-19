@@ -17,7 +17,7 @@ import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.util.List;
 
-public class TagCommand extends AbstractCommand {
+public final class TagCommand extends AbstractCommand {
     private final TagSystem tagSystem;
 
     public TagCommand(TagSystem tagSystem) {

@@ -21,7 +21,7 @@ import java.util.List;
  * Example command
  *
  */
-public class CommandExample extends AbstractCommand {
+public final class CommandExample extends AbstractCommand {
 
     /**
      * Parses the command name and the description to the super's constructor, both as a

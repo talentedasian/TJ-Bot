@@ -2,7 +2,7 @@ package org.togetherjava.tjbot.tag;
 
 import org.togetherjava.tjbot.db.Database;
 
-public class TagSystemInstanceHolder {
+public final class TagSystemInstanceHolder {
     private TagSystemInstanceHolder() {}
 
     private static volatile TagSystem instance;

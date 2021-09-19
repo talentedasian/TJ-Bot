@@ -20,7 +20,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class TagManageCommand extends AbstractCommand {
+public final class TagManageCommand extends AbstractCommand {
     private final TagSystem tagSystem;
 
     public TagManageCommand(TagSystem tagSystem) {

@@ -32,7 +32,7 @@ import org.togetherjava.tjbot.commands.AbstractCommand;
  * `{@code permban Tijs#0001}`
  *
  */
-public class SubCommandExample extends AbstractCommand {
+public final class SubCommandExample extends AbstractCommand {
 
     /**
      * Parses the command name and the description to the super's constructor, both as a

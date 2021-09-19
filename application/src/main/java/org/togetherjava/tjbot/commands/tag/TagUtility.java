@@ -13,7 +13,7 @@ import org.togetherjava.tjbot.tag.TagSystem;
 import java.awt.*;
 import java.time.LocalDateTime;
 
-public class TagUtility {
+public final class TagUtility {
     private TagUtility() {}
 
     public static MessageEmbed generateEmbed(String tag, String requestor) {
