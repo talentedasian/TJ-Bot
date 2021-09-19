@@ -227,7 +227,7 @@ public class TagManageCommand extends AbstractCommand {
                 event.getMessage().delete().queue();
             }
         } else {
-            event.reply(":police_car: Button theft is illegal").setEphemeral(true).queue();
+            event.reply(":police_car: Button theft is not allowed").setEphemeral(true).queue();
         }
     }
 }

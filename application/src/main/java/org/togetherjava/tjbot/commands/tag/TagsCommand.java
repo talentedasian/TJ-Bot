@@ -40,7 +40,7 @@ public class TagsCommand extends AbstractCommand {
                 || event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
             event.getMessage().delete().queue();
         } else {
-            event.reply(":police_car: Button theft is illegal").setEphemeral(true).queue();
+            event.reply(":police_car: Button theft is not allowed").setEphemeral(true).queue();
         }
     }
 }
