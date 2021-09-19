@@ -189,6 +189,8 @@ public class TagManageCommand extends AbstractCommand {
             if (failure instanceof ErrorResponseException ex
                     && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
                 event.reply("This message doesn't exist").setEphemeral(true).queue();
+            } else {
+                failure.printStackTrace();
             }
         });
     }
