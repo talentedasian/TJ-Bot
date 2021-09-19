@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.components.Button;
 import net.dv8tion.jda.api.interactions.components.ButtonStyle;
+import org.togetherjava.tjbot.commands.CommandUtility;
 import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class TagUtility {
 
         channel
             .sendMessageEmbeds(
-                    TagUtility.generateEmbed(isRaw ? escape(content) : content, requestor))
+                    TagUtility.generateEmbed(isRaw ? CommandUtility.escape(content) : content, requestor))
             .setActionRow(Button.of(ButtonStyle.DANGER, componentId, "Delete",
                     Emoji.fromUnicode("\uD83D\uDDD1")))
             .queue();
@@ -41,7 +42,7 @@ public class TagUtility {
             String content = tagSystem.get(tagId);
 
             event
-                .replyEmbeds(TagUtility.generateEmbed(isRaw ? escape(content) : content, requestor))
+                .replyEmbeds(TagUtility.generateEmbed(isRaw ? CommandUtility.escape(content) : content, requestor))
                 .addActionRow(Button.of(ButtonStyle.DANGER, componentId, "Delete",
                         Emoji.fromUnicode("\uD83D\uDDD1")))
                 .queue();
