@@ -199,30 +199,32 @@ public class TagManageCommand extends AbstractCommand {
     public void onButtonClick(ButtonClickEvent event, List<String> idArgs) {
         String userId = idArgs.get(0);
 
-        if (event.getUser().getId().equals(userId)
-                || event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            if (event.getButton().getLabel().equals("Of course!")
-                    && !event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-                String tagId = idArgs.get(1);
-
-                tagSystem.delete(tagId);
-
-                event.getMessage().delete().queue();
-
-                event
-                    .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                        .setTitle("Success")
-                        .setTimestamp(LocalDateTime.now())
-                        .setFooter(event.getUser().getAsTag())
-                        .setDescription("Successfully deleted tag '" + tagId + "'")
-                        .build())
-                    .setEphemeral(true)
-                    .queue();
-            } else if (event.getButton().getLabel().equals("Abort")) {
-                event.getMessage().delete().queue();
-            }
-        } else {
+        if (!event.getUser().getId().equals(userId)
+                && !event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
             event.reply(":police_car: Button theft is not allowed").setEphemeral(true).queue();
+
+            return;
+        }
+
+        if (event.getButton().getLabel().equals("Of course!")
+                && !event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+            String tagId = idArgs.get(1);
+
+            tagSystem.delete(tagId);
+
+            event.getMessage().delete().queue();
+
+            event
+                .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
+                    .setTitle("Success")
+                    .setTimestamp(LocalDateTime.now())
+                    .setFooter(event.getUser().getAsTag())
+                    .setDescription("Successfully deleted tag '" + tagId + "'")
+                    .build())
+                .setEphemeral(true)
+                .queue();
+        } else if (event.getButton().getLabel().equals("Abort")) {
+            event.getMessage().delete().queue();
         }
     }
 }
