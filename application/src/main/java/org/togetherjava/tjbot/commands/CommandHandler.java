@@ -35,7 +35,7 @@ public final class CommandHandler extends ListenerAdapter {
     private final Map<String, Command> commandMap;
 
     public CommandHandler(Database database) {
-        TagSystem tagSystem = TagSystemInstanceHolder.getOrCreate(database);
+        TagSystem tagSystem = TagSystemInstanceHolder.getInstance();
 
         commandList.addAll(List.of(new ReloadCommand(this), new TagCommand(tagSystem),
                 new TagsCommand(tagSystem), new TagManageCommand(tagSystem)));
