@@ -41,20 +41,22 @@ public class TagCommand extends AbstractCommand {
 
             TagUtility.replyTag(event, tagId, event.getUser().getAsTag(), tagSystem,
                     event.getOption("raw") != null, event.getUser().getId());
-        } else {
-            SelectionMenu.Builder menu =
-                    SelectionMenu.create(generateComponentId(event.getUser().getId()))
-                        .setRequiredRange(1, 1);
 
-            tagSystem.retrieveIds().stream().limit(25).forEach(tag -> menu.addOption(tag, tag));
-
-            event.reply("Choose a tag")
-                .addActionRow(menu.build())
-                .addActionRow(
-                        Button.of(ButtonStyle.DANGER, generateComponentId(event.getUser().getId()),
-                                "Delete", Emoji.fromUnicode("\uD83D\uDDD1")))
-                .queue();
+            return;
         }
+
+        SelectionMenu.Builder menu =
+                SelectionMenu.create(generateComponentId(event.getUser().getId()))
+                    .setRequiredRange(1, 1);
+
+        tagSystem.retrieveIds().stream().limit(25).forEach(tag -> menu.addOption(tag, tag));
+
+        event.reply("Choose a tag")
+            .addActionRow(menu.build())
+            .addActionRow(
+                    Button.of(ButtonStyle.DANGER, generateComponentId(event.getUser().getId()),
+                            "Delete", Emoji.fromUnicode("\uD83D\uDDD1")))
+            .queue();
     }
 
     @Override
