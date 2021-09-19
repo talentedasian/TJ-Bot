@@ -1,6 +1,5 @@
 package org.togetherjava.tjbot.tag;
 
-import org.jooq.Result;
 import org.togetherjava.tjbot.db.Database;
 import org.togetherjava.tjbot.db.generated.tables.Tags;
 import org.togetherjava.tjbot.db.generated.tables.records.TagsRecord;
