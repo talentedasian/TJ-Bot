@@ -55,6 +55,6 @@ public class TagSystem {
     }
 
     public Set<String> retrieveIds() {
-        return retrieve().keySet();
+        return Collections.unmodifiableSet(retrieve().keySet());
     }
 }
