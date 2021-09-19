@@ -63,12 +63,14 @@ public class TagCommand extends AbstractCommand {
     public void onButtonClick(ButtonClickEvent event, List<String> idArgs) {
         String userId = idArgs.get(0);
 
-        if (event.getUser().getId().equals(userId)
-                || event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.getMessage().delete().queue();
-        } else {
+        if (!event.getUser().getId().equals(userId)
+                && !event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
             event.reply(":police_car: Button theft is not allowed").setEphemeral(true).queue();
+
+            return;
         }
+
+        event.getMessage().delete().queue();
     }
 
     @Override
