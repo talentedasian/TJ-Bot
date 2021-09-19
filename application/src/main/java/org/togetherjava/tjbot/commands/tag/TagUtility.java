@@ -55,10 +55,6 @@ public class TagUtility {
         }
     }
 
-    public static String escape(String s) {
-        return s.replaceAll("([^a-zA-Z0-9 \n\r])", "\\\\$1");
-    }
-
     public static EmbedBuilder buildAllTagsEmbed(String user, TagSystem tagSystem) {
         return new EmbedBuilder().setColor(Color.MAGENTA)
             .setTimestamp(LocalDateTime.now())
