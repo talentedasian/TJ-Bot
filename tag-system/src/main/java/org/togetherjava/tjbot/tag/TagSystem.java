@@ -6,6 +6,7 @@ import org.togetherjava.tjbot.db.generated.tables.Tags;
 import org.togetherjava.tjbot.db.generated.tables.records.TagsRecord;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TagSystem {
     private final Database database;
@@ -49,14 +50,7 @@ public class TagSystem {
 
     public Map<String, String> retrieve() {
         return database.readTransaction(ctx -> {
-            Result<TagsRecord> result = ctx.selectFrom(Tags.TAGS).fetch();
-            Map<String, String> out = new HashMap<>();
-
-            for (TagsRecord tagsRecord : result) {
-                out.put(tagsRecord.getId(), tagsRecord.getContent());
-            }
-
-            return out;
+            return ctx.selectFrom(Tags.TAGS).fetch().stream().collect(Collectors.toMap(TagsRecord::getId, TagsRecord::getContent));
         });
     }
 
