@@ -75,16 +75,18 @@ public class TagCommand extends AbstractCommand {
     public void onSelectionMenu(SelectionMenuEvent event, List<String> idArgs) {
         String userId = idArgs.get(0);
 
-        if (event.getUser().getId().equals(userId)) {
-            SelectOption option = event.getSelectedOptions().get(0);
-            String tagId = option.getLabel();
-
-            event.getMessage().delete().queue();
-
-            TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(),
-                    tagSystem, false, generateComponentId(userId));
-        } else {
+        if (!event.getUser().getId().equals(userId)) {
             event.reply(":police_car: Selection menu theft is not allowed").setEphemeral(true).queue();
+
+            return;
         }
+
+        SelectOption option = event.getSelectedOptions().get(0);
+        String tagId = option.getLabel();
+
+        event.getMessage().delete().queue();
+
+        TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(),
+                tagSystem, false, generateComponentId(userId));
     }
 }
