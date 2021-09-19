@@ -17,7 +17,7 @@ public class TagSystemInstanceHolder {
 
     public static TagSystem getInstance() {
         if (instance == null) {
-            throw new UnsupportedOperationException("Instance not yet set");
+            throw new IllegalStateException("Instance not yet set");
         }
 
         return instance;
@@ -25,7 +25,7 @@ public class TagSystemInstanceHolder {
 
     public static void setInstance(TagSystem tagSystem) {
         if (instance != null) {
-            throw new UnsupportedOperationException("Instance already set");
+            throw new IllegalStateException("Instance already set");
         }
 
         instance = tagSystem;
