@@ -78,7 +78,9 @@ public final class TagCommand extends AbstractCommand {
         String userId = idArgs.get(0);
 
         if (!event.getUser().getId().equals(userId)) {
-            event.reply(":police_car: Selection menu theft is not allowed").setEphemeral(true).queue();
+            event.reply(":police_car: Selection menu theft is not allowed")
+                .setEphemeral(true)
+                .queue();
 
             return;
         }
@@ -88,7 +90,7 @@ public final class TagCommand extends AbstractCommand {
 
         event.getMessage().delete().queue();
 
-        TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(),
-                tagSystem, false, generateComponentId(userId));
+        TagUtility.sendTag(event.getMessageChannel(), tagId, event.getUser().getAsTag(), tagSystem,
+                false, generateComponentId(userId));
     }
 }

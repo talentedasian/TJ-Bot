@@ -29,8 +29,8 @@ public final class TagUtility {
         String content = tagSystem.get(tagId);
 
         channel
-            .sendMessageEmbeds(
-                    TagUtility.generateEmbed(isRaw ? CommandUtility.escape(content) : content, requestor))
+            .sendMessageEmbeds(TagUtility
+                .generateEmbed(isRaw ? CommandUtility.escape(content) : content, requestor))
             .setActionRow(Button.of(ButtonStyle.DANGER, componentId, "Delete",
                     Emoji.fromUnicode("\uD83D\uDDD1")))
             .queue();
@@ -42,7 +42,8 @@ public final class TagUtility {
             String content = tagSystem.get(tagId);
 
             event
-                .replyEmbeds(TagUtility.generateEmbed(isRaw ? CommandUtility.escape(content) : content, requestor))
+                .replyEmbeds(TagUtility
+                    .generateEmbed(isRaw ? CommandUtility.escape(content) : content, requestor))
                 .addActionRow(Button.of(ButtonStyle.DANGER, componentId, "Delete",
                         Emoji.fromUnicode("\uD83D\uDDD1")))
                 .queue();

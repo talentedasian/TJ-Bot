@@ -49,7 +49,10 @@ public final class TagSystem {
 
     public Map<String, String> retrieve() {
         return database.readTransaction(ctx -> {
-            return ctx.selectFrom(Tags.TAGS).fetch().stream().collect(Collectors.toMap(TagsRecord::getId, TagsRecord::getContent));
+            return ctx.selectFrom(Tags.TAGS)
+                .fetch()
+                .stream()
+                .collect(Collectors.toMap(TagsRecord::getId, TagsRecord::getContent));
         });
     }
 
