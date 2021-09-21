@@ -4,6 +4,8 @@ import org.togetherjava.tjbot.db.Database;
 
 /**
  * Holds the instance of the current {@link TagSystem}
+
+ * @author illuminator3
  */
 public final class TagSystemInstanceHolder {
     private TagSystemInstanceHolder() {}
