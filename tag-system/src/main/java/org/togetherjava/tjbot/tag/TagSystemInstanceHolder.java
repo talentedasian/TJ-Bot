@@ -2,6 +2,9 @@ package org.togetherjava.tjbot.tag;
 
 import org.togetherjava.tjbot.db.Database;
 
+/**
+ * Holds the instance of the current {@link TagSystem}
+ */
 public final class TagSystemInstanceHolder {
     private TagSystemInstanceHolder() {}
 

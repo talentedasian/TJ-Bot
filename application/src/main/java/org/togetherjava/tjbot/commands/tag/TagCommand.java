@@ -17,6 +17,13 @@ import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.util.List;
 
+/**
+ * Tag command. Usage: {@code /tag (id) (raw)}<br>
+ * Example disord usages:<br>
+ * {@code /tag}<br>
+ * {@code /tag ask}<br>
+ * {@code /tag ask true}
+ */
 public final class TagCommand extends AbstractCommand {
     private final TagSystem tagSystem;
 
