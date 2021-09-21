@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.togetherjava.tjbot.commands.tag.*;
 import org.togetherjava.tjbot.tag.TagSystem;
-import org.togetherjava.tjbot.tag.TagSystemInstanceHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,9 +32,7 @@ public final class CommandHandler extends ListenerAdapter {
     private final List<Command> commandList = new ArrayList<>();
     private final Map<String, Command> commandMap;
 
-    public CommandHandler() {
-        TagSystem tagSystem = TagSystemInstanceHolder.getInstance();
-
+    public CommandHandler(TagSystem tagSystem) {
         commandList.addAll(List.of(new ReloadCommand(this), new TagCommand(tagSystem),
                 new TagsCommand(tagSystem), new TagManageCommand(tagSystem)));
 

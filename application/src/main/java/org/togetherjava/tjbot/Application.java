@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.togetherjava.tjbot.commands.CommandHandler;
 import org.togetherjava.tjbot.db.Database;
 import org.togetherjava.tjbot.tag.TagSystem;
-import org.togetherjava.tjbot.tag.TagSystemInstanceHolder;
 
 import javax.security.auth.login.LoginException;
 import java.nio.file.Path;
@@ -52,13 +51,12 @@ public enum Application {
         logger.info("Starting bot...");
         try {
             Database database = new Database("jdbc:sqlite:" + databasePath.toAbsolutePath());
-
-            TagSystemInstanceHolder.setInstance(new TagSystem(database)); // initialize tag system
+            TagSystem tagSystem = new TagSystem(database);
 
             JDA jda = JDABuilder.createDefault(token)
                 .addEventListeners(new PingPongListener())
                 .addEventListeners(new DatabaseListener(database))
-                .addEventListeners(new CommandHandler())
+                .addEventListeners(new CommandHandler(tagSystem))
                 .build();
             jda.awaitReady();
             logger.info("Bot is ready");

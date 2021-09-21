@@ -34,10 +34,10 @@ public final class TagSystem {
     public void put(String tag, String content) {
         database.writeTransaction(ctx -> {
             ctx.insertInto(Tags.TAGS, Tags.TAGS.ID, Tags.TAGS.CONTENT)
-                    .values(tag, content)
-                    .onDuplicateKeyUpdate()
-                    .set(Tags.TAGS.CONTENT, content)
-                    .execute();
+                .values(tag, content)
+                .onDuplicateKeyUpdate()
+                .set(Tags.TAGS.CONTENT, content)
+                .execute();
         });
     }
 
