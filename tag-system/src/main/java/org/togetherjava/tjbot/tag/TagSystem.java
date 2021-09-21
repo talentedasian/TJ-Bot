@@ -7,6 +7,9 @@ import org.togetherjava.tjbot.db.generated.tables.records.TagsRecord;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author illuminator3
+ */
 public final class TagSystem {
     private final Database database;
 
