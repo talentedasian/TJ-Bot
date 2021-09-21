@@ -13,7 +13,10 @@ import net.dv8tion.jda.api.interactions.components.Button;
 import net.dv8tion.jda.api.interactions.components.ButtonStyle;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.togetherjava.tjbot.commands.AbstractCommand;
+import org.togetherjava.tjbot.commands.CommandHandler;
 import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.awt.*;
@@ -21,6 +24,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public final class TagManageCommand extends AbstractCommand {
+    private final static Logger log = LoggerFactory.getLogger(CommandHandler.class);
+
     private final TagSystem tagSystem;
 
     public TagManageCommand(TagSystem tagSystem) {
@@ -120,7 +125,7 @@ public final class TagManageCommand extends AbstractCommand {
                     && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
                 event.reply("This message doesn't exist").setEphemeral(true).queue();
             } else {
-                failure.printStackTrace();
+                log.error("An unknown exception occurred", failure);
             }
         });
     }
@@ -190,7 +195,7 @@ public final class TagManageCommand extends AbstractCommand {
                     && ex.getErrorResponse() == ErrorResponse.UNKNOWN_MESSAGE) {
                 event.reply("This message doesn't exist").setEphemeral(true).queue();
             } else {
-                failure.printStackTrace();
+                log.error("An unknown exception occurred", failure);
             }
         });
     }
