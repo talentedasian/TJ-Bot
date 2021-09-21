@@ -30,11 +30,11 @@ public final class TagSystem {
 
     public void put(String tag, String content) {
         database.writeTransaction(ctx -> {
-            TagsRecord tagsRecord = ctx.newRecord(Tags.TAGS).setId(tag).setContent(content);
-
-            if (tagsRecord.update() == 0) {
-                tagsRecord.insert();
-            }
+            ctx.insertInto(Tags.TAGS, Tags.TAGS.ID, Tags.TAGS.CONTENT)
+                    .values(tag, content)
+                    .onDuplicateKeyUpdate()
+                    .set(Tags.TAGS.CONTENT, content)
+                    .execute();
         });
     }
 
