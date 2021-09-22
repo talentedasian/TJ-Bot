@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Tag system database utility.<br>
+ * Has methods to store & retrieve tags from the database.
+ *
  * @author illuminator3
  */
 public final class TagSystem {
@@ -17,6 +20,13 @@ public final class TagSystem {
         this.database = database;
     }
 
+    /**
+     * Checks if a tag already exists in the database
+     *
+     * @param tag id tag to check
+     * @return true if it exists, false if not
+     * @author illuminator3
+     */
     public boolean exists(String tag) {
         return database.readTransaction(ctx -> {
             return Optional
@@ -25,12 +35,25 @@ public final class TagSystem {
         });
     }
 
+    /**
+     * Deletes a tag from the database
+     *
+     * @param tag tag to delete
+     * @author illuminator3
+     */
     public void delete(String tag) {
         database.writeTransaction(ctx -> {
             ctx.deleteFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).execute();
         });
     }
 
+    /**
+     * Inserts/updates a (new) tag into the database
+     *
+     * @param tag tag id
+     * @param content content of the tag
+     * @author illuminator3
+     */
     public void put(String tag, String content) {
         database.writeTransaction(ctx -> {
             ctx.insertInto(Tags.TAGS, Tags.TAGS.ID, Tags.TAGS.CONTENT)
@@ -41,6 +64,13 @@ public final class TagSystem {
         });
     }
 
+    /**
+     * Retrieves the content of a tag from the database.<br>
+     *
+     * @param tag tag id
+     * @return content of the tag, null if the tag doesn't exist
+     * @author illuminator3
+     */
     public String get(String tag) {
         return database.readTransaction(ctx -> {
             return Optional
@@ -50,6 +80,12 @@ public final class TagSystem {
         });
     }
 
+    /**
+     * Retrieves all tags from the database
+     *
+     * @return all tags (id -> content)
+     * @author illuminator3
+     */
     public Map<String, String> retrieve() {
         return database.readTransaction(ctx -> {
             return ctx.selectFrom(Tags.TAGS)
@@ -59,6 +95,18 @@ public final class TagSystem {
         });
     }
 
+    /**
+     * Retrieves all tag ids from the database.<br>
+     * This method is defined like so:
+     * <pre>
+     * retrieveIds() {
+     *      return Collections.unmodifiableSet(retrieve().keySet());
+     * }
+     * </pre>
+     *
+     * @return ids of all tags; unmodifiable set
+     * @author illuminator3
+     */
     public Set<String> retrieveIds() {
         return Collections.unmodifiableSet(retrieve().keySet());
     }
