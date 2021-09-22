@@ -26,6 +26,11 @@ import java.util.List;
 public final class TagManageCommand extends AbstractCommand {
     private final static Logger log = LoggerFactory.getLogger(CommandHandler.class);
 
+    private static final String TAG_ID = "tag-id";
+    private static final String CONTENT = "content";
+    private static final String MESSAGE_ID = "message-id";
+    private static final String SUCCESS = "Success";
+
     private final TagSystem tagSystem;
 
     public TagManageCommand(TagSystem tagSystem) {
@@ -38,21 +43,21 @@ public final class TagManageCommand extends AbstractCommand {
     public @NotNull CommandData addOptions(@NotNull CommandData commandData) {
         return commandData.addSubcommands(
                 new SubcommandData("rawtag", "View a tag in its raw form")
-                    .addOption(OptionType.STRING, "id", "tag id"),
+                    .addOption(OptionType.STRING, "id", TAG_ID),
                 new SubcommandData("edittag", "Edit a tag")
-                    .addOption(OptionType.STRING, "id", "tag id", true)
-                    .addOption(OptionType.STRING, "content", "Tag content", true),
+                    .addOption(OptionType.STRING, "id", TAG_ID, true)
+                    .addOption(OptionType.STRING, CONTENT, "Tag content", true),
                 new SubcommandData("editidtag", "Edit a tag using a message id")
-                    .addOption(OptionType.STRING, "tag-id", "tag id", true)
-                    .addOption(OptionType.NUMBER, "message-id", "Message id", true),
+                    .addOption(OptionType.STRING, TAG_ID, TAG_ID, true)
+                    .addOption(OptionType.NUMBER, MESSAGE_ID, MESSAGE_ID, true),
                 new SubcommandData("deletetag", "Delete a tag").addOption(OptionType.STRING, "id",
-                        "tag id", true),
+                        TAG_ID, true),
                 new SubcommandData("createtag", "Create a tag")
-                    .addOption(OptionType.STRING, "id", "tag id", true)
-                    .addOption(OptionType.STRING, "content", "Tag content", true),
+                    .addOption(OptionType.STRING, "id", TAG_ID, true)
+                    .addOption(OptionType.STRING, CONTENT, "Tag content", true),
                 new SubcommandData("createidtag", "Create a tag using a message id")
-                    .addOption(OptionType.STRING, "tag-id", "tag id", true)
-                    .addOption(OptionType.NUMBER, "message-id", "Message id", true));
+                    .addOption(OptionType.STRING, TAG_ID, TAG_ID, true)
+                    .addOption(OptionType.NUMBER, MESSAGE_ID, MESSAGE_ID, true));
     }
 
     @Override
@@ -79,7 +84,7 @@ public final class TagManageCommand extends AbstractCommand {
 
     private void editTag(SlashCommandEvent event) {
         String tagId = event.getOption("id").getAsString();
-        String content = event.getOption("content").getAsString();
+        String content = event.getOption(CONTENT).getAsString();
 
         if (!tagSystem.exists(tagId)) {
             event.reply("This tag does not exist").setEphemeral(true).queue();
@@ -91,7 +96,7 @@ public final class TagManageCommand extends AbstractCommand {
 
         event
             .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                .setTitle("Success")
+                .setTitle(SUCCESS)
                 .setTimestamp(LocalDateTime.now())
                 .setFooter(event.getUser().getAsTag())
                 .setDescription("Successfully edited tag '" + tagId + "'")
@@ -100,8 +105,8 @@ public final class TagManageCommand extends AbstractCommand {
     }
 
     private void editIdTag(SlashCommandEvent event) {
-        String tagId = event.getOption("tag-id").getAsString();
-        long messageId = event.getOption("message-id").getAsLong();
+        String tagId = event.getOption(TAG_ID).getAsString();
+        long messageId = event.getOption(MESSAGE_ID).getAsLong();
 
         if (!tagSystem.exists(tagId)) {
             event.reply("This tag does not exist").setEphemeral(true).queue();
@@ -114,7 +119,7 @@ public final class TagManageCommand extends AbstractCommand {
 
             event
                 .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                    .setTitle("Success")
+                    .setTitle(SUCCESS)
                     .setTimestamp(LocalDateTime.now())
                     .setFooter(event.getUser().getAsTag())
                     .setDescription("Successfully edited tag '" + tagId + "'")
@@ -149,7 +154,7 @@ public final class TagManageCommand extends AbstractCommand {
 
     private void createTag(SlashCommandEvent event) {
         String tagId = event.getOption("id").getAsString();
-        String content = event.getOption("content").getAsString();
+        String content = event.getOption(CONTENT).getAsString();
 
         if (tagSystem.exists(tagId)) {
             event.reply("This tag already exists").setEphemeral(true).queue();
@@ -161,7 +166,7 @@ public final class TagManageCommand extends AbstractCommand {
 
         event
             .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                .setTitle("Success")
+                .setTitle(SUCCESS)
                 .setTimestamp(LocalDateTime.now())
                 .setFooter(event.getUser().getAsTag())
                 .setDescription("Successfully created tag '" + tagId + "'")
@@ -170,8 +175,8 @@ public final class TagManageCommand extends AbstractCommand {
     }
 
     private void createIdTag(SlashCommandEvent event) {
-        String tagId = event.getOption("tag-id").getAsString();
-        long messageId = event.getOption("message-id").getAsLong();
+        String tagId = event.getOption(TAG_ID).getAsString();
+        long messageId = event.getOption(MESSAGE_ID).getAsLong();
 
         if (tagSystem.exists(tagId)) {
             event.reply("This tag already exists").setEphemeral(true).queue();
@@ -184,7 +189,7 @@ public final class TagManageCommand extends AbstractCommand {
 
             event
                 .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                    .setTitle("Success")
+                    .setTitle(SUCCESS)
                     .setTimestamp(LocalDateTime.now())
                     .setFooter(event.getUser().getAsTag())
                     .setDescription("Successfully created tag '" + tagId + "'")
@@ -226,7 +231,7 @@ public final class TagManageCommand extends AbstractCommand {
 
         event
             .replyEmbeds(new EmbedBuilder().setColor(Color.GREEN)
-                .setTitle("Success")
+                .setTitle(SUCCESS)
                 .setTimestamp(LocalDateTime.now())
                 .setFooter(event.getUser().getAsTag())
                 .setDescription("Successfully deleted tag '" + tagId + "'")
