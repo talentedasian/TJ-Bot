@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public final class TagManageCommand extends AbstractCommand {
-    private final static Logger log = LoggerFactory.getLogger(CommandHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(CommandHandler.class);
 
     private static final String TAG_ID = "tag-id";
     private static final String CONTENT = "content";
