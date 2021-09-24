@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.togetherjava.tjbot.commands.AbstractCommand;
-import org.togetherjava.tjbot.commands.CommandHandler;
 import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.awt.*;
