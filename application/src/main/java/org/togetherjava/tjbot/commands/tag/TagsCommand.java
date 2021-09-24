@@ -11,6 +11,11 @@ import org.togetherjava.tjbot.tag.TagSystem;
 
 import java.util.List;
 
+/**
+ * Tag command. Usage: {@code /tags}. Displays all available tags.
+ *
+ * @author illuminator3
+ */
 public final class TagsCommand extends AbstractCommand {
     private final TagSystem tagSystem;
 
