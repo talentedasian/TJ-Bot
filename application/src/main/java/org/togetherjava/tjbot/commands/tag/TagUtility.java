@@ -13,17 +13,46 @@ import org.togetherjava.tjbot.tag.TagSystem;
 import java.awt.*;
 import java.time.LocalDateTime;
 
+/**
+ * Utility class for the command system.<br>
+ * Available methods:<br>
+ * - {@link #generateEmbed(String, String)}<br>
+ * - {@link #sendTag(MessageChannel, String, String, TagSystem, boolean, String)}<br>
+ * - {@link #replyTag(SlashCommandEvent, String, String, TagSystem, boolean, String)}<br>
+ * - {@link #buildAllTagsEmbed(String, TagSystem)}
+ *
+ * @author illuminator3
+ */
 public final class TagUtility {
     private TagUtility() {}
 
-    public static MessageEmbed generateEmbed(String tag, String requestor) {
-        return new EmbedBuilder().setDescription(tag)
+    /**
+     * Generates an embed with the given content.
+     *
+     * @param content content
+     * @param requestor user that requested the embed
+     * @return the generated embed
+     * @author illuminator3
+     */
+    public static MessageEmbed generateEmbed(String content, String requestor) {
+        return new EmbedBuilder().setDescription(content)
             .setTimestamp(LocalDateTime.now())
             .setFooter(requestor)
-            .setColor(new Color(tag.hashCode()))
+            .setColor(new Color(content.hashCode()))
             .build();
     }
 
+    /**
+     * Sends a tag into a given channel.
+     *
+     * @param channel channel the tag was requested in
+     * @param tagId tag id
+     * @param requestor user that requested the tag
+     * @param tagSystem current tag system instance
+     * @param isRaw if the tag should be displayed raw
+     * @param componentId generated componentId based on the user id
+     * @author illuminator3
+     */
     public static void sendTag(MessageChannel channel, String tagId, String requestor,
             TagSystem tagSystem, boolean isRaw, String componentId) {
         String content = tagSystem.get(tagId);
@@ -36,6 +65,17 @@ public final class TagUtility {
             .queue();
     }
 
+    /**
+     * Replies to a message with a given tag.
+     *
+     * @param event slash command event causing this tag request
+     * @param tagId tag id
+     * @param requestor user that requested the tag
+     * @param tagSystem current tag system instance
+     * @param isRaw if the tag should be displayed raw
+     * @param componentId generated componentId based on the user id
+     * @author illuminator3
+     */
     public static void replyTag(SlashCommandEvent event, String tagId, String requestor,
             TagSystem tagSystem, boolean isRaw, String componentId) {
         if (tagSystem.exists(tagId)) {
@@ -57,6 +97,14 @@ public final class TagUtility {
         }
     }
 
+    /**
+     * Builds an embed with all available tag ids as its description
+     *
+     * @param user user that requested the embed
+     * @param tagSystem current tag system instance
+     * @return the generated embed
+     * @author illuminator3
+     */
     public static EmbedBuilder buildAllTagsEmbed(String user, TagSystem tagSystem) {
         return new EmbedBuilder().setColor(Color.MAGENTA)
             .setTimestamp(LocalDateTime.now())
