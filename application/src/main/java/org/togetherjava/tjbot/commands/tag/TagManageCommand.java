@@ -30,7 +30,7 @@ import java.util.List;
  * @author illuminator3
  */
 public final class TagManageCommand extends AbstractCommand {
-    private static final Logger log = LoggerFactory.getLogger(CommandHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(TagManageCommand.class);
 
     private static final String TAG_ID_LITERAL = "tag-id";
     private static final String CONTENT_LITERAL = "content";
