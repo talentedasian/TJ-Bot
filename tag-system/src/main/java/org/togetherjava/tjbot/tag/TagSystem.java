@@ -98,9 +98,10 @@ public final class TagSystem {
     /**
      * Retrieves all tag ids from the database.<br>
      * This method is defined like so:
+     * 
      * <pre>
      * retrieveIds() {
-     *      return Collections.unmodifiableSet(retrieve().keySet());
+     *     return Collections.unmodifiableSet(retrieve().keySet());
      * }
      * </pre>
      *

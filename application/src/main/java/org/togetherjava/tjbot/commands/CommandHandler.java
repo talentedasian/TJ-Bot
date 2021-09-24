@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  */
 public final class CommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CommandHandler.class);
-  
+
     private final List<Command> commandList = new ArrayList<>();
     private final Map<String, Command> commandMap;
 

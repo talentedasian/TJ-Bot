@@ -24,7 +24,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * TagManage command. Usage: {@code /tagmanage [rawtag|edittag|editidtag|deletedtag|createtag|createidtag] (...)}.
+ * TagManage command. Usage:
+ * {@code /tagmanage [rawtag|edittag|editidtag|deletedtag|createtag|createidtag] (...)}.
  *
  * @author illuminator3
  */
