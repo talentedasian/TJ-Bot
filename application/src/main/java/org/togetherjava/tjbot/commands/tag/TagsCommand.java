@@ -12,7 +12,7 @@ import org.togetherjava.tjbot.tag.TagSystem;
 import java.util.List;
 
 /**
- * Tag command. Usage: {@code /tags}. Displays all available tags.
+ * Tags command. Usage: {@code /tags}. Displays all available tags.
  *
  * @author illuminator3
  */
