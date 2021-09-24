@@ -23,6 +23,11 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * TagManage command. Usage: {@code /tagmanage [rawtag|edittag|editidtag|deletedtag|createtag|createidtag] (...)}.
+ *
+ * @author illuminator3
+ */
 public final class TagManageCommand extends AbstractCommand {
     private static final Logger log = LoggerFactory.getLogger(CommandHandler.class);
 
