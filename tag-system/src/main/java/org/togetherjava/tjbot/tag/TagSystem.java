@@ -28,11 +28,7 @@ public final class TagSystem {
      * @author illuminator3
      */
     public boolean exists(String tag) {
-        return database.readTransaction(ctx -> {
-            return Optional
-                .ofNullable(ctx.selectFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).fetchOne())
-                .isPresent();
-        });
+        return database.readTransaction(ctx -> ctx.selectFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).fetchOne() != null);
     }
 
     /**
@@ -98,7 +94,7 @@ public final class TagSystem {
     /**
      * Retrieves all tag ids from the database.<br>
      * This method is defined like so:
-     * 
+     *
      * <pre>
      * retrieveIds() {
      *     return Collections.unmodifiableSet(retrieve().keySet());
