@@ -28,7 +28,8 @@ public final class TagSystem {
      * @author illuminator3
      */
     public boolean exists(String tag) {
-        return database.readTransaction(ctx -> ctx.selectFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).fetchOne() != null);
+        return database.readTransaction(
+                ctx -> ctx.selectFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).fetchOne() != null);
     }
 
     /**

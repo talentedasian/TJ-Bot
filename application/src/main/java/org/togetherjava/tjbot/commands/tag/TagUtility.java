@@ -55,8 +55,10 @@ public final class TagUtility {
      * @author illuminator3
      */
     public static void sendTag(MessageChannel channel, String tagId, String requestor,
-            TagSystem tagSystem, boolean isRaw, String componentId) throws IllegalArgumentException {
-        String content = tagSystem.get(tagId).orElseThrow(() -> new IllegalArgumentException("Tag doesn't exist"));
+            TagSystem tagSystem, boolean isRaw, String componentId)
+            throws IllegalArgumentException {
+        String content = tagSystem.get(tagId)
+            .orElseThrow(() -> new IllegalArgumentException("Tag doesn't exist"));
 
         channel
             .sendMessageEmbeds(TagUtility
@@ -79,9 +81,11 @@ public final class TagUtility {
      * @author illuminator3
      */
     public static void replyTag(SlashCommandEvent event, String tagId, String requestor,
-            TagSystem tagSystem, boolean isRaw, String componentId) throws IllegalArgumentException {
+            TagSystem tagSystem, boolean isRaw, String componentId)
+            throws IllegalArgumentException {
         if (tagSystem.exists(tagId)) {
-            String content = tagSystem.get(tagId).orElseThrow(() -> new IllegalArgumentException("Tag doesn't exist"));
+            String content = tagSystem.get(tagId)
+                .orElseThrow(() -> new IllegalArgumentException("Tag doesn't exist"));
 
             event
                 .replyEmbeds(TagUtility
