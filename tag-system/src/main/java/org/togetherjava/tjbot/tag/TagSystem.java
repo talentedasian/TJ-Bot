@@ -64,15 +64,14 @@ public final class TagSystem {
      * Retrieves the content of a tag from the database.<br>
      *
      * @param tag tag id
-     * @return content of the tag, null if the tag doesn't exist
+     * @return content of the tag, empty optional if the tag doesn't exist
      * @author illuminator3
      */
-    public String get(String tag) {
+    public Optional<String> get(String tag) {
         return database.readTransaction(ctx -> {
             return Optional
                 .ofNullable(ctx.selectFrom(Tags.TAGS).where(Tags.TAGS.ID.eq(tag)).fetchOne())
-                .map(TagsRecord::getContent)
-                .orElse(null);
+                .map(TagsRecord::getContent);
         });
     }
 
