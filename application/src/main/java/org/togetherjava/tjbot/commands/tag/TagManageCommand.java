@@ -35,6 +35,7 @@ public final class TagManageCommand extends AbstractCommand {
     private static final String CONTENT_LITERAL = "content";
     private static final String MESSAGE_ID_LITERAL = "message-id";
     private static final String SUCCESS_LITERAL = "Success";
+    private static final String TAG_DOES_NOT_EXIST = "This tag does not exist";
 
     private final TagSystem tagSystem;
 
@@ -92,7 +93,7 @@ public final class TagManageCommand extends AbstractCommand {
         String content = event.getOption(CONTENT_LITERAL).getAsString();
 
         if (!tagSystem.exists(tagId)) {
-            event.reply("This tag does not exist").setEphemeral(true).queue();
+            event.reply(TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
 
             return;
         }
@@ -114,7 +115,7 @@ public final class TagManageCommand extends AbstractCommand {
         long messageId = event.getOption(MESSAGE_ID_LITERAL).getAsLong();
 
         if (!tagSystem.exists(tagId)) {
-            event.reply("This tag does not exist").setEphemeral(true).queue();
+            event.reply(TAG_DOES_NOT_EXIST).setEphemeral(true).queue();
 
             return;
         }
