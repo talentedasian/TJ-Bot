@@ -58,7 +58,8 @@ public final class TagUtility {
             TagSystem tagSystem, boolean isRaw, String componentId)
             throws IllegalArgumentException {
         String content = tagSystem.get(tagId)
-            .orElseThrow(() -> new IllegalArgumentException("Tag doesn't exist"));
+            .orElseThrow(() -> new IllegalArgumentException(
+                    String.format("Tag '%s' doesn't exist", tagId)));
 
         channel
             .sendMessageEmbeds(TagUtility
@@ -85,7 +86,8 @@ public final class TagUtility {
             throws IllegalArgumentException {
         if (tagSystem.exists(tagId)) {
             String content = tagSystem.get(tagId)
-                .orElseThrow(() -> new IllegalArgumentException("Tag doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("Tag '%s' doesn't exist", tagId)));
 
             event
                 .replyEmbeds(TagUtility
