@@ -122,7 +122,21 @@ public class CommandHandler extends ListenerAdapter {
         }
     }
 
+    /**
+     * {@link CommandHandler#commandList}
+     * @return
+     * Modifiable {@link List<Command>} of all commands
+     */
     public List<Command> getCommandList() {
         return commandList;
+    }
+
+    /**
+     * {@link CommandHandler#commandMap}
+     * @return
+     * Modifiable {@link Map<> Map<String, Command>} of all commands
+     */
+    public Map<String, Command> getCommandMap() {
+        return commandMap;
     }
 }

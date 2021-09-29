@@ -67,12 +67,12 @@ public record ReloadCommand(CommandHandler commandHandler) implements Command {
 
                 case SUCCESS -> {
                     event.deferReply().queue();
-                    List<Command> commands = commandHandler.getCommandList();
+                    List<Command> internalCommands = commandHandler.getCommandList();
                     List<CommandListUpdateAction> restActions;
 
                     // * loads all RestActions from updating the Guild and Global commands
-                    restActions = getGuildCommandUpdateRestActions(event, commands);
-                    restActions.add(getGlobalCommandUpdateRestAction(event, commands));
+                    restActions = getGuildCommandUpdateRestActions(event, internalCommands);
+                    restActions.add(getGlobalCommandUpdateRestAction(event, internalCommands));
 
                     // * Triggers all RestActions, when they're all finished the message gets send.
                     RestAction.allOf(restActions).queue(updatedCommands -> {
