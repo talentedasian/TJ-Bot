@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * 
  * @see Command
  */
-public class AbstractCommand implements Command {
+public class AbstractCommand extends Command {
     private final String commandName;
     private final String description;
     private final boolean isGuildOnly;

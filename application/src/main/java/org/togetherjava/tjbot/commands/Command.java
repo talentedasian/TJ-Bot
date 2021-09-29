@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import org.togetherjava.tjbot.commands.example.CommandExample;
 import org.togetherjava.tjbot.commands.example.SubCommandExample;
 
-import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,7 +25,9 @@ import java.util.List;
  *
  * @see AbstractCommand
  */
-public interface Command {
+public abstract class Command {
+    static int ComponentIdCount = 0;
+
 
     /**
      * <p>
@@ -43,7 +44,7 @@ public interface Command {
      * @return The commands name as a {@link String}
      */
     @NotNull
-    String getCommandName();
+    public abstract String getCommandName();
 
     /**
      * <p>
@@ -58,7 +59,7 @@ public interface Command {
      * @return The command's description as a {@link String}
      */
     @NotNull
-    String getDescription();
+    public abstract String getDescription();
 
     /**
      * Whenever the command is only for guilds, optional method.
@@ -68,7 +69,7 @@ public interface Command {
      *
      * @return Whenever the command is only for guilds as a {@link Boolean}
      */
-    default boolean isGuildOnly() {
+    public boolean isGuildOnly() {
         return false;
     }
 
@@ -79,7 +80,7 @@ public interface Command {
      * @param commandData The {@link CommandData} where the options need to be added.
      * @return The changed {@link CommandData}
      */
-    default @NotNull CommandData addOptions(@NotNull CommandData commandData) {
+    public @NotNull CommandData addOptions(@NotNull CommandData commandData) {
         return commandData;
     }
 
@@ -93,7 +94,7 @@ public interface Command {
      *
      * @param event The relating {@link SlashCommandEvent}
      */
-    default void onSlashCommand(SlashCommandEvent event) {}
+    public void onSlashCommand(SlashCommandEvent event) {}
 
     /**
      * The execute method for when a button related to <b>this</b> command gets clicked. <br>
@@ -112,7 +113,7 @@ public interface Command {
      * @param event The relating {@link ButtonClickEvent}
      * @param idArgs All given arguments stored in a {@link List} of {@link String}
      */
-    default void onButtonClick(ButtonClickEvent event, List<String> idArgs) {}
+    public void onButtonClick(ButtonClickEvent event, List<String> idArgs) {}
 
     /**
      * The execute method for when a selection menu related to <b>this</b> command gets clicked.
@@ -133,7 +134,7 @@ public interface Command {
      * @param event The relating {@link ButtonClickEvent}
      * @param idArgs All given arguments stored in a {@link List} of {@link String}
      */
-    default void onSelectionMenu(SelectionMenuEvent event, List<String> idArgs) {}
+    public void onSelectionMenu(SelectionMenuEvent event, List<String> idArgs) {}
 
 
     /**
@@ -155,10 +156,10 @@ public interface Command {
      * 
      * @see #generateComponentId(Collection)
      */
-    default @NotNull String generateComponentId(@NotNull String... args) {
+    protected @NotNull String generateComponentId(@NotNull String... args) {
         StringBuilder stringBuilder = new StringBuilder(getCommandName());
 
-        stringBuilder.append("-").append(Instant.now().getNano());
+        stringBuilder.append("-").append(ComponentIdCount++);
 
         for (String arg : args) {
             stringBuilder.append("-").append(arg);
@@ -186,7 +187,7 @@ public interface Command {
      * 
      * @see #generateComponentId(String...)
      */
-    default @NotNull String generateComponentId(@NotNull Collection<String> args) {
+    protected @NotNull String generateComponentId(@NotNull Collection<String> args) {
         return generateComponentId(args.toArray(new String[] {}));
     }
 }

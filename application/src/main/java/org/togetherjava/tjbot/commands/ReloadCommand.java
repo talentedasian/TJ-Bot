@@ -17,7 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public record ReloadCommand(CommandHandler commandHandler) implements Command {
+public class ReloadCommand extends Command {
+    private final CommandHandler commandHandler;
+
+    public ReloadCommand(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
+    }
 
     @Override
     public @NotNull String getCommandName() {
